@@ -53,7 +53,9 @@ function Header() {
           </GradientBorderBox>
         </div>
       </nav>
-      <div></div>
+      <div className=" opacity-0 ">
+        <img src="/images/logo.svg" className=" h-8 " />
+      </div>
     </div>
   );
 }

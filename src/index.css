@@ -40,12 +40,17 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
+  --font-family-geist: "Geist", sans-serif;
   --color-bg-01: var(--bg-01);
+  --color-primary-tint-02: var(--primary-tint-02);
 }
 
 :root {
   --radius: 0.625rem;
+
   --bg-01: #f9faff;
+  --primary-tint-02: #ebf0ff;
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
