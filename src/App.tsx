@@ -15,7 +15,7 @@ function App() {
           <Sidebar />
           <main className=" h-full overflow-hidden flex-1 flex flex-col ">
             <Chat>
-              <Chat.Header />
+              <Chat.NewChatHeader />
               {/* <VideoCallFrame /> */}
               <ChatMessageFrame />
             </Chat>

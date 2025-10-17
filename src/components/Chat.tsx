@@ -1,4 +1,5 @@
 import { Phone, Video } from "lucide-react";
+import NewChatheader from "./NewChatHeader";
 
 function Chat({ children }: { children: React.ReactNode }) {
   return (
@@ -10,7 +11,7 @@ function Chat({ children }: { children: React.ReactNode }) {
 
 function ChatHeader() {
   return (
-    <div className="flex items-center justify-between w-full px-4 py-3 border-b border-[#EEEEEE] rounded-t-[20px]">
+    <div className="flex items-center justify-between w-full p-4 border-b border-[#EEEEEE] rounded-t-[20px]">
       <div className="flex items-center gap-3">
         <div
           className="w-12 h-12 rounded-full bg-[#EBF0FF] bg-cover bg-center"
@@ -62,5 +63,6 @@ function ChatContent({
 
 Chat.Header = ChatHeader;
 Chat.Content = ChatContent;
+Chat.NewChatHeader = NewChatheader;
 
 export default Chat;

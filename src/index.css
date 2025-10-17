@@ -43,6 +43,7 @@
   --font-family-geist: "Geist", sans-serif;
   --color-bg-01: var(--bg-01);
   --color-primary-tint-02: var(--primary-tint-02);
+  --color-stroke-01: var(--stroke-01);
 }
 
 :root {
@@ -50,6 +51,7 @@
 
   --bg-01: #f9faff;
   --primary-tint-02: #ebf0ff;
+  --stroke-01: #eeeeee;
 
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
