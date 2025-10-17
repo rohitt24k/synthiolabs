@@ -1,19 +1,18 @@
-import type { IChatMessage } from "@/types/input";
+import type { DoctorInfo, IChatMessage } from "@/types/input";
 import { create } from "zustand";
 
 export interface ChatItem {
   id: string;
-  name: string;
-  message: string;
-  specification: string;
-  image: string;
+  type: "individual" | "group";
+  members: string[];
   messages: IChatMessage[];
 }
 
 interface ChatStore {
   chats: ChatItem[];
   currentChatId?: string;
-  addChat: (name: string, message: string, image?: string) => void;
+  currentRecipients?: DoctorInfo[];
+  addChat: (type: "individual" | "group", members: string[]) => string;
   addMessage: (chatId: string, message: IChatMessage) => void;
   changeCurrentChat: (chatId: string) => void;
   likeOrDislikeMessage: (
@@ -21,47 +20,38 @@ interface ChatStore {
     messageId: string,
     action: "like" | "dislike"
   ) => void;
+  setCurrentRecipients: (recipients: DoctorInfo[]) => void;
 }
 
 export const useChatStore = create<ChatStore>((set) => ({
   chats: [
     {
-      id: "1",
-      name: "Dr. Emily Chen",
-      specification: "Clinical Research Specialist",
-      message:
-        "What roles do regulatory affairs specialists play in drug approval?",
-      image: "https://randomuser.me/api/portraits/women/68.jpg",
-      messages: [],
-    },
-    {
-      id: "2",
-      name: "Sarah Patel",
-      specification: "Pharmacovigilance Officer",
-      message: "How do clinical research associates contribute to trials?",
-      image: "https://randomuser.me/api/portraits/women/44.jpg",
+      id: "chat1",
+      type: "individual",
+      members: ["1"],
       messages: [],
     },
   ],
 
-  addChat: (name, message, image) =>
+  addChat: (type: "individual" | "group", members: string[]): string => {
+    const newChatId =
+      typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
     set((state) => ({
       chats: [
         ...state.chats,
         {
-          id: Date.now().toString(),
-          name,
-          message,
-          specification: "Medical Professional",
-          image:
-            image ||
-            `https://randomuser.me/api/portraits/${
-              Math.random() > 0.5 ? "women" : "men"
-            }/${Math.floor(Math.random() * 90)}.jpg`,
+          id: newChatId,
+          type,
+          members,
           messages: [],
         },
       ],
-    })),
+      currentChatId: newChatId,
+    }));
+    return newChatId;
+  },
   addMessage: (chatId, message) =>
     set((state) => ({
       chats: state.chats.map((chat) =>
@@ -94,5 +84,9 @@ export const useChatStore = create<ChatStore>((set) => ({
           }),
         };
       }),
+    })),
+  setCurrentRecipients: (recipients) =>
+    set(() => ({
+      currentRecipients: recipients,
     })),
 }));

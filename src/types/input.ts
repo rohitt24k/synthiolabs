@@ -14,8 +14,18 @@ export interface IUploadedFile {
 
 export interface IChatMessage {
   id: string;
-  role: "user" | "assistant";
+  senderId: string;
   message: IInputItem;
   liked: boolean;
   disliked: boolean;
+}
+
+export interface DoctorInfo {
+  id: string;
+  name: string;
+  specialization: string;
+  image: string;
+  patientCases: String[];
+  publications: { title: string; subTitle: string; content: string }[];
+  socialMedias: { content: string; platform: string }[];
 }

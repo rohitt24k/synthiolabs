@@ -72,19 +72,44 @@ function ChatMessageFrame() {
   const chatInputBoxRef = useRef<HTMLInputElement>(null);
   const chatContentRef = useRef<HTMLInputElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
-  const { currentChatId, chats, addMessage } = useChatStore();
+  const {
+    currentChatId,
+    chats,
+    addMessage,
+    addChat,
+    currentRecipients,
+    changeCurrentChat,
+  } = useChatStore();
   const currentChat = chats.find((chat) => chat.id === currentChatId);
   const currentMessages = currentChat?.messages || [];
   const [showDoctorCard, setShowDoctorCard] = useState(true);
 
   const onSend = (message: IInputItem) => {
-    if (!currentChatId || !addMessage) return;
-    addMessage(currentChatId, {
+    if (!addMessage) return;
+    let chatId = currentChatId;
+    if (!chatId && currentMessages.length === 0) {
+      console.log(currentRecipients);
+      if (!currentRecipients || currentRecipients.length === 0) {
+        console.log("No recipients");
+        return;
+      }
+      const memberIds = currentRecipients.map((r) => r.id);
+      const newChat = addChat(
+        memberIds.length === 1 ? "individual" : "group",
+        memberIds
+      );
+
+      changeCurrentChat(newChat);
+      chatId = newChat;
+    }
+
+    if (!chatId) return;
+    addMessage(chatId, {
       id:
         typeof crypto !== "undefined" && "randomUUID" in crypto
           ? crypto.randomUUID()
           : `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-      role: "user",
+      senderId: "0",
       message,
       liked: false,
       disliked: false,
@@ -99,12 +124,12 @@ function ChatMessageFrame() {
         assistantReplies[Math.floor(Math.random() * assistantReplies.length)]
           .message,
     };
-    addMessage(currentChatId, {
+    addMessage(chatId, {
       id:
         typeof crypto !== "undefined" && "randomUUID" in crypto
           ? crypto.randomUUID()
           : `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-      role: "assistant",
+      senderId: currentChat?.members[0] || "1",
       message: assistantReply,
       liked: false,
       disliked: false,

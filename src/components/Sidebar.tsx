@@ -1,13 +1,12 @@
+import { doctors } from "@/data/doctors";
 import { useChatStore } from "@/store/useChatStore";
 import { useEffect } from "react";
 
 function Sidebar() {
   const { chats, changeCurrentChat } = useChatStore();
-
-  useEffect(() => {
-    if (changeCurrentChat) changeCurrentChat(chats[0]?.id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   changeCurrentChat && changeCurrentChat(chats[0]?.id);
+  // }, []);
 
   return (
     <div className="flex flex-col items-center w-full max-w-[362px] h-auto p-0">
@@ -32,7 +31,11 @@ function Sidebar() {
             <div
               className="w-12 h-12 rounded-full bg-[#EBF0FF] overflow-hidden flex-shrink-0"
               style={{
-                backgroundImage: `url(${chat.image})`,
+                backgroundImage: `url(${
+                  chat.type === "individual"
+                    ? doctors.find((doc) => doc.id === chat.members[0])?.image
+                    : "/images/group-chat-placeholder.jpg"
+                })`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
@@ -41,7 +44,9 @@ function Sidebar() {
             {/* Text */}
             <div className="flex-1 overflow-hidden flex flex-col justify-center text-left w-full">
               <h3 className="text-[16px] font-medium text-[#1C274C] leading-[24px] line-clamp-1">
-                {chat.name}
+                {chat.type === "individual"
+                  ? doctors.find((doc) => doc.id === chat.members[0])?.name
+                  : "Group Chat"}
               </h3>
               {chat.messages.length > 0 && (
                 <p className="text-[14px] font-normal text-[#93A1B8] leading-[20px] truncate ">

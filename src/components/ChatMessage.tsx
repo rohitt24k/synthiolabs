@@ -16,13 +16,13 @@ interface ChatMessageProps extends IChatMessage {
 
 function ChatMessage({
   id,
-  role,
+  senderId,
   message,
   liked,
   disliked,
   currentChatId,
 }: ChatMessageProps) {
-  const isUser = role === "user";
+  const isUser = senderId === "0";
   const { likeOrDislikeMessage } = useChatStore();
   const [copied, setCopied] = useState(false);
   const handleButtonClick = (action: string) => {

@@ -2,42 +2,15 @@ import { Phone, Video, X } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
-const doctors = [
-  {
-    id: "1",
-    name: "Sarah Patel",
-    specialization: "Medical Oncologist",
-    avatar: "https://randomuser.me/api/portraits/men/1.jpg",
-  },
-  {
-    id: "2",
-    name: "James Lee",
-    specialization: "Radiologist",
-    avatar: "https://randomuser.me/api/portraits/men/2.jpg",
-  },
-  {
-    id: "3",
-    name: "Emily Chen",
-    specialization: "Pediatrician",
-    avatar: "https://randomuser.me/api/portraits/men/3.jpg",
-  },
-];
+import { doctors } from "@/data/doctors";
+import type { DoctorInfo } from "@/types/input";
+import { useChatStore } from "@/store/useChatStore";
 
 function NewChatheader() {
-  const [recipients, setRecipients] = useState([
-    {
-      id: "4",
-      name: "Sarah Patel",
-      avatar: "https://randomuser.me/api/portraits/women/68.jpg",
-    },
-    {
-      id: "5",
-      name: "James Lee",
-      avatar: "https://randomuser.me/api/portraits/women/70.jpg",
-    },
-  ]);
+  const [recipients, setRecipients] = useState<DoctorInfo[]>([]);
   const [addDoctorInput, setAddDoctorInput] = useState("");
   const [showDoctorsSuggestions, setShowDoctorsSuggestions] = useState(false);
+  const { currentRecipients, setCurrentRecipients } = useChatStore();
 
   const addDoctorInputRef = useRef<HTMLInputElement>(null);
 
@@ -56,17 +29,18 @@ function NewChatheader() {
     );
   }, [recipients, addDoctorInput]);
 
-  const onRemoveRecipient = (id: string) =>
-    setRecipients((prev) => prev.filter((r) => r.id !== id));
+  const onRemoveRecipient = (id: string) => {
+    const updatedRecipients = recipients.filter((r) => r.id !== id);
+    setRecipients(updatedRecipients);
+    setCurrentRecipients(updatedRecipients);
+  };
 
-  const handleAddDoctorRecipient = (recipient: {
-    id: string;
-    name: string;
-    avatar: string;
-  }) => {
-    setRecipients((prev) => [...prev, recipient]);
+  const handleAddDoctorRecipient = (recipient: DoctorInfo) => {
+    const updatedRecipients = [...recipients, recipient];
+    setRecipients(updatedRecipients);
     setAddDoctorInput("");
     setShowDoctorsSuggestions(false);
+    setCurrentRecipients(updatedRecipients);
   };
 
   return (
@@ -96,8 +70,8 @@ function NewChatheader() {
                   <div
                     className="w-5 h-5 rounded-full bg-[#EBF0FF] bg-center bg-cover"
                     style={{
-                      backgroundImage: r.avatar
-                        ? `url(${r.avatar})`
+                      backgroundImage: r.image
+                        ? `url(${r.image})`
                         : "linear-gradient(0deg, rgba(0,0,0,0.2), rgba(0,0,0,0.2))",
                     }}
                   />
@@ -143,8 +117,8 @@ function NewChatheader() {
                           <div
                             className="w-8 h-8 rounded-full bg-[#EBF0FF] bg-center bg-cover"
                             style={{
-                              backgroundImage: doctor.avatar
-                                ? `url(${doctor.avatar})`
+                              backgroundImage: doctor.image
+                                ? `url(${doctor.image})`
                                 : "linear-gradient(0deg, rgba(0,0,0,0.2), rgba(0,0,0,0.2)), #EBF0FF",
                             }}
                           />
