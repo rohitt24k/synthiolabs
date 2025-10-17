@@ -11,3 +11,11 @@ export interface IUploadedFile {
   mimeType: string;
   name: string;
 }
+
+export interface IChatMessage {
+  id: string;
+  role: "user" | "assistant";
+  message: IInputItem;
+  liked: boolean;
+  disliked: boolean;
+}

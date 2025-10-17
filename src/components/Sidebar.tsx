@@ -1,7 +1,12 @@
 import { useChatStore } from "@/store/useChatStore";
+import { useEffect } from "react";
 
 function Sidebar() {
-  const { chats } = useChatStore();
+  const { chats, changeCurrentChat } = useChatStore();
+  useEffect(() => {
+    changeCurrentChat && changeCurrentChat(chats[0]?.id);
+  }, []);
+
   return (
     <div className="flex flex-col items-center w-full max-w-[362px] h-auto p-0">
       <div className="flex items-center justify-between w-full px-1 h-[72px]">
@@ -20,6 +25,7 @@ function Sidebar() {
             className={`flex items-center gap-3 w-full max-w-[346px] h-[72px] rounded-xl border-b border-[#EEEEEE] hover:bg-primary-tint-02 ${
               i === 0 ? "bg-[#EBF0FF]" : ""
             } p-3`}
+            onClick={() => changeCurrentChat && changeCurrentChat(chat.id)}
           >
             <div
               className="w-12 h-12 rounded-full bg-[#EBF0FF] overflow-hidden flex-shrink-0"
@@ -35,9 +41,11 @@ function Sidebar() {
               <h3 className="text-[16px] font-medium text-[#1C274C] leading-[24px] line-clamp-1">
                 {chat.name}
               </h3>
-              <p className="text-[14px] font-normal text-[#93A1B8] leading-[20px] truncate ">
-                {chat.message}
-              </p>
+              {chat.messages.length > 0 && (
+                <p className="text-[14px] font-normal text-[#93A1B8] leading-[20px] truncate ">
+                  {chat.messages[chat.messages.length - 1]?.message.content}
+                </p>
+              )}
             </div>
           </div>
         ))}

@@ -1,3 +1,4 @@
+import { useChatStore } from "@/store/useChatStore";
 import { Phone, Video } from "lucide-react";
 import NewChatheader from "./NewChatHeader";
 
@@ -10,22 +11,25 @@ function Chat({ children }: { children: React.ReactNode }) {
 }
 
 function ChatHeader() {
+  const { currentChatId, chats } = useChatStore();
+  const currentChat = chats.find((chat) => chat.id === currentChatId);
   return (
     <div className="flex items-center justify-between w-full p-4 border-b border-[#EEEEEE] rounded-t-[20px]">
       <div className="flex items-center gap-3">
         <div
           className="w-12 h-12 rounded-full bg-[#EBF0FF] bg-cover bg-center"
           style={{
-            backgroundImage:
-              "url('https://randomuser.me/api/portraits/women/66.jpg')",
+            backgroundImage: `url(${
+              currentChat?.image || "/images/doctor-placeholder.jpg"
+            })`,
           }}
         ></div>
         <div className="flex flex-col">
           <h3 className="text-[#1C274C] text-[16px] font-medium leading-[24px]">
-            Dr. Emily Chen
+            {currentChat?.name || "Dr. Jane Smith"}
           </h3>
           <p className="text-[#93A1B8] text-[14px] leading-[20px]">
-            Medical Oncologist
+            {currentChat?.specification || "Cardiologist"}
           </p>
         </div>
       </div>

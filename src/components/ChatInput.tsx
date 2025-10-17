@@ -1,10 +1,10 @@
 import { useCallback, useRef, useState, useEffect } from "react";
 import { Paperclip, ArrowUp, X } from "lucide-react";
-import type { IUploadedFile } from "@/types/input";
+import type { IInputItem, IUploadedFile } from "@/types/input";
 import type React from "react";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 
-function ChatInput({ onSend }: { onSend?: (text: string) => void }) {
+function ChatInput({ onSend }: { onSend?: (message: IInputItem) => void }) {
   const [message, setMessage] = useState("");
   const [files, setFiles] = useState<IUploadedFile[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -64,8 +64,17 @@ function ChatInput({ onSend }: { onSend?: (text: string) => void }) {
 
   const handleSend = () => {
     if (message.trim() === "") return;
-    onSend?.(message.trim());
+    onSend?.({
+      id:
+        typeof crypto !== "undefined" && "randomUUID" in crypto
+          ? crypto.randomUUID()
+          : `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      type: "text",
+      content: message,
+      files: files.length > 0 ? files : undefined,
+    });
     setMessage("");
+    setFiles([]);
   };
 
   return (
@@ -116,6 +125,12 @@ function ChatInput({ onSend }: { onSend?: (text: string) => void }) {
         onInput={autoResize}
         placeholder="Ask anything..."
         className="w-full text-[#16191D] text-[16px] leading-[24px] outline-none bg-transparent placeholder:text-[#A1A1A1] resize-none overflow-auto"
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            handleSend();
+          }
+        }}
       />
 
       {/* Bottom Row */}
