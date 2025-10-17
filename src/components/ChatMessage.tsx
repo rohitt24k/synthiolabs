@@ -45,13 +45,33 @@ function ChatMessage({
     >
       {/* Message Bubble */}
       <div
-        className={` rounded-[20px] px-4 py-3 text-[16px] leading-[24px] ${
+        className={` rounded-[20px] p-3 text-[16px] leading-[24px] flex flex-col items-end gap-1 ${
           isUser
             ? "bg-[#4B7BFF] text-white rounded-tr-[0px]"
             : "bg-[#F6F6F6] text-[#16191D] rounded-tl-[0px]"
         }`}
       >
-        {message.content}
+        <p className={`${message.files?.length ? "text-right" : ""} w-fit`}>
+          {message.content}
+        </p>
+
+        {message.files?.map((file) =>
+          file.mimeType.startsWith("image") ? (
+            <img src={file.url} className=" max-w-[20vw] rounded-xl " />
+          ) : (
+            file.mimeType === "application/pdf" && (
+              <div
+                className=" size-[10vw] grid place-items-center bg-[#ED676A]/20 rounded overflow-hidden "
+                title={file.name}
+              >
+                <img
+                  src="/images/pdf-icon.svg"
+                  className=" size-[5vw] max-w-20 "
+                />
+              </div>
+            )
+          )
+        )}
       </div>
 
       {/* Action Buttons */}
