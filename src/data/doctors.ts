@@ -5,7 +5,7 @@ export const doctors: DoctorInfo[] = [
     id: "1",
     name: "Dr. Alice Smith",
     specialization: "Cardiologist",
-    image: "https://example.com/images/dr-alice-smith.jpg",
+    image: "https://randomuser.me/api/portraits/men/68.jpg",
     patientCases: [
       "Successfully treated a patient with severe arrhythmia using advanced ablation techniques.",
       "Managed a complex case of heart failure with a multidisciplinary approach.",
@@ -39,7 +39,7 @@ export const doctors: DoctorInfo[] = [
     id: "2",
     name: "Dr. Bob Johnson",
     specialization: "Neurologist",
-    image: "https://example.com/images/dr-bob-johnson.jpg",
+    image: "https://randomuser.me/api/portraits/men/20.jpg",
     patientCases: [
       "Diagnosed and treated a rare case of autoimmune encephalitis.",
       "Implemented a successful rehabilitation program for stroke patients.",
@@ -73,7 +73,7 @@ export const doctors: DoctorInfo[] = [
     id: "3",
     name: "Dr. Carol Lee",
     specialization: "Oncologist",
-    image: "https://example.com/images/dr-carol-lee.jpg",
+    image: "https://randomuser.me/api/portraits/men/8.jpg",
     patientCases: [
       "Led a clinical trial for a new targeted therapy in breast cancer.",
       "Provided palliative care for advanced cancer patients, improving quality of life.",
@@ -107,7 +107,7 @@ export const doctors: DoctorInfo[] = [
     id: "4",
     name: "Dr. David Kim",
     specialization: "Pediatrician",
-    image: "https://example.com/images/dr-david-kim.jpg",
+    image: "https://randomuser.me/api/portraits/men/40.jpg",
     patientCases: [
       "Successfully managed a case of pediatric asthma with a personalized treatment plan.",
       "Conducted community outreach programs to promote childhood vaccination.",
