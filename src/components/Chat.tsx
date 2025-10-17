@@ -35,10 +35,10 @@ function ChatHeader() {
       </div>
 
       <div className="flex items-center gap-3">
-        <button className="flex justify-center items-center w-10 h-10 rounded-full border border-[#EEEEEE] bg-white">
+        <button className="flex justify-center items-center w-10 h-10 rounded-full border border-stroke-01 bg-white">
           <Video className="w-4 h-4 text-[#16191D]" />
         </button>
-        <button className="flex justify-center items-center w-10 h-10 rounded-full border border-[#EEEEEE] bg-white">
+        <button className="flex justify-center items-center w-10 h-10 rounded-full border border-stroke-01 bg-white">
           <Phone className="w-4 h-4 text-[#16191D]" />
         </button>
       </div>
@@ -53,7 +53,7 @@ function ChatContent({
 }: {
   children: React.ReactNode;
   className?: string;
-  ref?: React.RefObject<HTMLInputElement | null>;
+  ref?: React.RefObject<HTMLDivElement | null>;
 }) {
   return (
     <div

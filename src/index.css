@@ -46,6 +46,7 @@
   --color-stroke-01: var(--stroke-01);
   --color-primary-main: var(--primary-main);
   --color-system-success: var(--system-success);
+  --color-stone: var(--stone);
 }
 
 :root {
@@ -56,6 +57,7 @@
   --stroke-01: #eeeeee;
   --primary-main: #013bdb;
   --system-success: #06c270;
+  --stone: #343330;
 
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);

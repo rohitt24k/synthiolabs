@@ -3,8 +3,10 @@ import { useEffect } from "react";
 
 function Sidebar() {
   const { chats, changeCurrentChat } = useChatStore();
+
   useEffect(() => {
-    changeCurrentChat && changeCurrentChat(chats[0]?.id);
+    if (changeCurrentChat) changeCurrentChat(chats[0]?.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

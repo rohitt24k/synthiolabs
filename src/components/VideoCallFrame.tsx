@@ -1,4 +1,4 @@
-import { Phone, AudioLines } from "lucide-react";
+import { AudioLines } from "lucide-react";
 import Chat from "./Chat";
 import VideoCallActionButtons from "./VideoCallActionButtons";
 

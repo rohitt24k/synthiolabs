@@ -1,6 +1,8 @@
-import { AudioLines } from "lucide-react";
+import { AudioLines, ClosedCaption } from "lucide-react";
 import Chat from "./Chat";
 import VideoCallActionButtons from "./VideoCallActionButtons";
+import TranscriptPanel from "./TranscriptPanel";
+import { useRef, useState } from "react";
 
 interface IVideoCardProps {
   name: string;
@@ -11,7 +13,11 @@ interface IVideoCardProps {
 const VideoCard = ({ name, image, status }: IVideoCardProps) => {
   return (
     <div className="flex flex-col gap-3 w-[280px]">
-      <div className="relative w-full h-[165px] bg-white border-4 border-system-success shadow-[0_4px_24px_rgba(0,0,0,0.05)] rounded-[20px] overflow-hidden">
+      <div
+        className={`relative w-full h-[165px] bg-white ${
+          status ? "border-4 border-system-success" : ""
+        } shadow-[0_4px_24px_rgba(0,0,0,0.05)] rounded-[20px] overflow-hidden`}
+      >
         <img src={image} alt={name} className=" w-full h-full object-cover " />
 
         {status && (
@@ -33,9 +39,12 @@ const VideoCard = ({ name, image, status }: IVideoCardProps) => {
 };
 
 function GroupVideoCall() {
+  const [showTranscript, setShowTranscript] = useState(false);
+  const chatContentRef = useRef<HTMLDivElement>(null);
+
   return (
-    <Chat.Content className=" relative flex items-center ">
-      <div className=" flex items-center justify-center gap-x-5 gap-y-4 w-full flex-wrap ">
+    <Chat.Content className=" relative flex items-center " ref={chatContentRef}>
+      <div className=" flex h-fit max-h-full overflow-auto items-center justify-center gap-x-5 gap-y-4 w-full flex-wrap ">
         <VideoCard
           name="Dr Ramakrishnan"
           image="https://randomuser.me/api/portraits/men/1.jpg"
@@ -76,9 +85,26 @@ function GroupVideoCall() {
         <VideoCard name="You" image="/images/you.svg" />
 
         <div className=" absolute bottom-4 left-1/2 -translate-x-1/2 ">
-          <VideoCallActionButtons />
+          <VideoCallActionButtons parentRef={chatContentRef} />
         </div>
       </div>
+
+      {!showTranscript && (
+        <button
+          className=" absolute right-6 top-6 flex justify-center items-center w-10 h-10 rounded-full border border-stroke-01 bg-white "
+          onClick={() => {
+            setShowTranscript(true);
+          }}
+        >
+          <ClosedCaption />
+        </button>
+      )}
+
+      {showTranscript && (
+        <div className=" absolute right-0 top-0 ">
+          <TranscriptPanel handleClose={() => setShowTranscript(false)} />
+        </div>
+      )}
     </Chat.Content>
   );
 }

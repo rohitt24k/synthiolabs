@@ -18,8 +18,8 @@ function App() {
             <Chat>
               <Chat.NewChatHeader />
               {/* <VideoCallFrame /> */}
-              {/* <ChatMessageFrame /> */}
-              <GroupVideoCall />
+              <ChatMessageFrame />
+              {/* <GroupVideoCall /> */}
             </Chat>
           </main>
         </section>
