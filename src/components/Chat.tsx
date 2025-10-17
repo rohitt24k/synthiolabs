@@ -2,7 +2,7 @@ import { Phone, Video } from "lucide-react";
 
 function Chat({ children }: { children: React.ReactNode }) {
   return (
-    <div className=" flex-1 h-full relative flex flex-col items-center bg-white rounded-[20px] overflow-hidden">
+    <div className=" flex-1 h-full w-full relative flex flex-col items-center bg-white rounded-[20px] overflow-hidden">
       {children}
     </div>
   );
@@ -44,12 +44,17 @@ function ChatHeader() {
 function ChatContent({
   children,
   className = "",
+  ref,
 }: {
   children: React.ReactNode;
   className?: string;
+  ref?: React.RefObject<HTMLInputElement | null>;
 }) {
   return (
-    <div className={`flex-1 h-full px-8 py-9 overflow-auto ${className}`}>
+    <div
+      className={`flex-1 h-full px-8 py-9 overflow-auto ${className}`}
+      ref={ref}
+    >
       {children}
     </div>
   );

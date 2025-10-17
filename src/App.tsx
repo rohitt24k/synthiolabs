@@ -13,7 +13,7 @@ function App() {
         <Header />
         <section className=" flex-1 flex gap-3 px-20 py-4 overflow-hidden ">
           <Sidebar />
-          <main className=" h-full flex-1 flex flex-col ">
+          <main className=" h-full overflow-hidden flex-1 flex flex-col ">
             <Chat>
               <Chat.Header />
               {/* <VideoCallFrame /> */}
