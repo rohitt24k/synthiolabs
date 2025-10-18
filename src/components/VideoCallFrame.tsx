@@ -6,7 +6,7 @@ const VideoCallFrame = () => {
   return (
     <>
       <Chat.Content className="flex flex-col justify-center items-center gap-4">
-        <div className=" max-w-full aspect-video min-h-[300px] relative border-4 border-[#06C270] rounded-2xl overflow-hidden ">
+        <div className=" max-w-full aspect-video relative border-4 border-[#06C270] rounded-2xl overflow-hidden ">
           <img
             src="https://images.unsplash.com/photo-1607746882042-944635dfe10e"
             alt="Doctor video"
