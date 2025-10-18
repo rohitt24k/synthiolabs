@@ -1,12 +1,7 @@
 import { useCallStore } from "@/store/useCallStore";
 import { Phone } from "lucide-react";
-import { useEffect, useState } from "react";
 
-function VideoCallActionButtons({
-  parentRef,
-}: {
-  parentRef?: React.RefObject<HTMLDivElement | null>;
-}) {
+function VideoCallActionButtons() {
   // const [show, setShow] = useState(true);
   const { endCall } = useCallStore();
 

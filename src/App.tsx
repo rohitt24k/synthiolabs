@@ -3,7 +3,6 @@ import ChatMessageFrame from "./components/ChatMessageFrame";
 import Gradient from "./components/Gradient";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
-import VideoCallFrame from "./components/VideoCallFrame";
 import { useCallStore } from "./store/useCallStore";
 
 function App() {

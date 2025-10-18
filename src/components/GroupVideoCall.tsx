@@ -85,7 +85,7 @@ function GroupVideoCall() {
         <VideoCard name="You" image="/images/you.svg" />
 
         <div className=" absolute bottom-4 left-1/2 -translate-x-1/2 ">
-          <VideoCallActionButtons parentRef={chatContentRef} />
+          <VideoCallActionButtons />
         </div>
       </div>
 
