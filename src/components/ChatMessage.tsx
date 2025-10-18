@@ -57,16 +57,19 @@ function ChatMessage({
 
         {message.files?.map((file) =>
           file.mimeType.startsWith("image") ? (
-            <img src={file.url} className=" max-w-[20vw] rounded-xl " />
+            <img
+              src={file.url}
+              className=" max-w-[20vw] min-w-40 min-h-40 rounded-xl "
+            />
           ) : (
             file.mimeType === "application/pdf" && (
               <div
-                className=" size-[10vw] grid place-items-center bg-[#ED676A]/20 rounded overflow-hidden "
+                className=" size-[10vw] min-w-20 min-h-20 grid place-items-center bg-[#ED676A]/20 rounded overflow-hidden "
                 title={file.name}
               >
                 <img
                   src="/images/pdf-icon.svg"
-                  className=" size-[5vw] max-w-20 "
+                  className=" size-[5vw] min-w-12 min-h-12 max-w-20 "
                 />
               </div>
             )

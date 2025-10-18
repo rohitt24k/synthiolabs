@@ -123,48 +123,57 @@ function ChatInput({
         </ScrollArea>
       )}
       {/* Text Input */}
-      <textarea
-        ref={textAreaRef}
-        rows={1}
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        onInput={autoResize}
-        placeholder="Ask anything..."
-        disabled={isDisabled}
-        className="w-full text-[#16191D] text-[16px] leading-[24px] outline-none bg-transparent placeholder:text-[#A1A1A1] resize-none overflow-auto"
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
-            handleSend();
-          }
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSend();
         }}
-      />
-
-      {/* Bottom Row */}
-      <div className="flex w-full justify-between items-center">
-        {/* Left: Paperclip */}
-        <button
-          className="flex justify-center items-center w-10 h-10 border border-[#EEEEEE] rounded-full bg-white hover:bg-[#F8F8F8] transition-colors"
-          title="Attach"
-          onClick={handleFileUploadClick}
-        >
-          <Paperclip className="w-4 h-4 text-[#16191D]" />
-        </button>
-
-        {/* Right: Send */}
-        <button
-          onClick={handleSend}
-          className="flex justify-center items-center w-10 h-10 rounded-full bg-gradient-to-b from-[#013BDB] to-[#2C62F7] shadow-[-1px_1px_3px_rgba(1,59,219,0.4),_-2px_2px_3px_rgba(1,32,60,0.34),_inset_0px_1px_9px_2px_rgba(210,234,255,0.3)] hover:scale-105 cursor-pointer transition-transform disabled:opacity-50 "
-          style={{
-            background:
-              "url('/images/background-dirt.png') center/300px 300px no-repeat, linear-gradient(180deg, #013BDB 0%, #2C62F7 100%)",
+        className=" w-full box-border flex flex-col justify-center items-start gap-4 "
+      >
+        <textarea
+          ref={textAreaRef}
+          rows={1}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onInput={autoResize}
+          placeholder="Ask anything..."
+          disabled={isDisabled}
+          className="w-full text-[#16191D] text-[16px] leading-[24px] outline-none bg-transparent placeholder:text-[#A1A1A1] resize-none overflow-auto"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              handleSend();
+            }
           }}
-          title="Send"
-          disabled={!message && !files.length}
-        >
-          <ArrowUp className="w-4 h-4 text-white" />
-        </button>
-      </div>
+        />
+
+        {/* Bottom Row */}
+        <div className="flex w-full justify-between items-center">
+          {/* Left: Paperclip */}
+          <button
+            className="flex justify-center items-center w-10 h-10 border border-[#EEEEEE] rounded-full bg-white hover:bg-[#F8F8F8] transition-colors"
+            title="Attach"
+            type="button"
+            onClick={handleFileUploadClick}
+          >
+            <Paperclip className="w-4 h-4 text-[#16191D]" />
+          </button>
+
+          {/* Right: Send */}
+          <button
+            type="submit"
+            className="flex justify-center items-center w-10 h-10 rounded-full bg-gradient-to-b from-[#013BDB] to-[#2C62F7] shadow-[-1px_1px_3px_rgba(1,59,219,0.4),_-2px_2px_3px_rgba(1,32,60,0.34),_inset_0px_1px_9px_2px_rgba(210,234,255,0.3)] hover:scale-105 cursor-pointer transition-transform disabled:opacity-50 "
+            style={{
+              background:
+                "url('/images/background-dirt.png') center/300px 300px no-repeat, linear-gradient(180deg, #013BDB 0%, #2C62F7 100%)",
+            }}
+            title="Send"
+            disabled={!message && !files.length}
+          >
+            <ArrowUp className="w-4 h-4 text-white" />
+          </button>
+        </div>
+      </form>
       <input
         type="file"
         className=" sr-only  "

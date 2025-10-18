@@ -1,8 +1,14 @@
 import { doctors } from "@/data/doctors";
 import { useChatStore } from "@/store/useChatStore";
 
-function Sidebar({ className = "" }: { className?: string }) {
-  const { chats, changeCurrentChat } = useChatStore();
+function Sidebar({
+  className = "",
+  onSelect,
+}: {
+  className?: string;
+  onSelect?: () => void;
+}) {
+  const { chats, changeCurrentChat, currentChatId } = useChatStore();
   // useEffect(() => {
   //   changeCurrentChat && changeCurrentChat(chats[0]?.id);
   // }, []);
@@ -17,7 +23,10 @@ function Sidebar({ className = "" }: { className?: string }) {
         </h2>
         <button
           className="p-2 hover:bg-gray-100 rounded-full transition cursor-pointer"
-          onClick={() => changeCurrentChat("")}
+          onClick={() => {
+            changeCurrentChat("");
+            onSelect?.();
+          }}
         >
           <img src="/images/square-pen.svg" className=" h-6 w-6" />
         </button>
@@ -27,22 +36,21 @@ function Sidebar({ className = "" }: { className?: string }) {
         {chats.map((chat, i) => (
           <div
             key={i}
-            className={`flex items-center gap-3 w-full md:max-w-[346px] h-[72px] rounded-xl border-b border-[#EEEEEE] hover:bg-primary-tint-02 ${
-              i === 0 ? "bg-[#EBF0FF]" : ""
+            className={`flex items-center gap-3 w-full md:max-w-[346px] h-[72px] rounded-xl border-b border-[#EEEEEE] hover:bg-primary-tint-02 cursor-pointer ${
+              chat.id === currentChatId ? "bg-[#EBF0FF]" : ""
             } p-3`}
-            onClick={() => changeCurrentChat && changeCurrentChat(chat.id)}
+            onClick={() => {
+              if (changeCurrentChat) changeCurrentChat(chat.id);
+              onSelect?.();
+            }}
           >
-            <div
-              className="w-12 h-12 rounded-full bg-[#EBF0FF] overflow-hidden flex-shrink-0"
-              style={{
-                backgroundImage: `url(${
-                  chat.type === "individual"
-                    ? doctors.find((doc) => doc.id === chat.members[0])?.image
-                    : "/images/group-chat-placeholder.jpg"
-                })`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
+            <img
+              className="w-12 h-12 rounded-full bg-[#EBF0FF] overflow-hidden flex-shrink-0 object-cover"
+              src={
+                chat.type === "individual"
+                  ? doctors.find((doc) => doc.id === chat.members[0])?.image
+                  : "/images/users.svg"
+              }
             />
 
             {/* Text */}

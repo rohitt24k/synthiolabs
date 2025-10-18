@@ -8,17 +8,20 @@ import {
 import GradientBorderBox from "./GradientBorderBox ";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import Sidebar from "./Sidebar";
+import { useState } from "react";
 
 function Header() {
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+
   return (
     <div className=" flex justify-between items-center py-3 px-8 ">
       <div className=" md:hidden ">
-        <Sheet>
+        <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
           <SheetTrigger asChild>
             <Menu />
           </SheetTrigger>
           <SheetContent side="left" className=" px-4 max-w-[350px] ">
-            <Sidebar />
+            <Sidebar onSelect={() => setIsSheetOpen(false)} />
           </SheetContent>
         </Sheet>
       </div>
