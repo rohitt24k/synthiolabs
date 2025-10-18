@@ -10,7 +10,7 @@ function NewChatheader() {
   const [recipients, setRecipients] = useState<DoctorInfo[]>([]);
   const [addDoctorInput, setAddDoctorInput] = useState("");
   const [showDoctorsSuggestions, setShowDoctorsSuggestions] = useState(false);
-  const { currentRecipients, setCurrentRecipients } = useChatStore();
+  const { setCurrentRecipients } = useChatStore();
 
   const addDoctorInputRef = useRef<HTMLInputElement>(null);
 
@@ -45,7 +45,7 @@ function NewChatheader() {
 
   return (
     <div className="w-full flex justify-center items-center p-4 bg-white border-b border-stroke-01 rounded-t-[20px] z-0">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between w-full gap-3">
+      <div className="flex flex-row items-center justify-between w-full gap-3">
         <div className="flex-1 flex flex-col gap-2">
           <h2
             className="text-[#16191D] text-[18px] font-semibold leading-[24px] tracking-[-0.02em] outline-none "
@@ -144,7 +144,7 @@ function NewChatheader() {
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className=" self-start flex items-center gap-3">
           <button className="flex justify-center items-center w-10 h-10 rounded-full border border-[#EEEEEE] bg-white">
             <Video className="w-4 h-4 text-[#16191D]" />
           </button>

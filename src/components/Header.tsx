@@ -1,13 +1,32 @@
-import { LayoutGrid, MessageCircle, NotebookText, Wand2 } from "lucide-react";
+import {
+  LayoutGrid,
+  Menu,
+  MessageCircle,
+  NotebookText,
+  Wand2,
+} from "lucide-react";
 import GradientBorderBox from "./GradientBorderBox ";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import Sidebar from "./Sidebar";
 
 function Header() {
   return (
     <div className=" flex justify-between items-center py-3 px-8 ">
+      <div className=" md:hidden ">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Menu />
+          </SheetTrigger>
+          <SheetContent side="left" className=" px-4 max-w-[350px] ">
+            <Sidebar />
+          </SheetContent>
+        </Sheet>
+      </div>
       <div>
         <img src="/images/logo.svg" className=" h-8 " />
       </div>
-      <nav>
+
+      <nav className=" max-md:hidden ">
         <div
           className="flex items-center justify-center gap-2 p-2 w-full h-[52px]
                  bg-white/80 border-2 border-white shadow-[-1px_3px_7px_rgba(0,0,0,0.1),inset_-1px_3px_7px_rgba(0,0,0,0.02)]
@@ -53,7 +72,8 @@ function Header() {
           </GradientBorderBox>
         </div>
       </nav>
-      <div className=" opacity-0 ">
+
+      <div className=" max-md:hidden opacity-0 ">
         <img src="/images/logo.svg" className=" h-8 " />
       </div>
     </div>

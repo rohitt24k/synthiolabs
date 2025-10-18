@@ -12,8 +12,10 @@ function App() {
       <Gradient />
       <div className=" h-screen overflow-hidden flex flex-col relative z-[2] ">
         <Header />
-        <section className=" flex-1 flex gap-3 px-20 py-4 overflow-hidden ">
-          <Sidebar />
+        <section className=" flex-1 flex gap-3 px-4 sm:px-8 lg:px-20 py-4 overflow-hidden ">
+          <>
+            <Sidebar className=" max-md:hidden " />
+          </>
           <main className=" h-full overflow-hidden flex-1 flex flex-col ">
             <Chat>
               <Chat.NewChatHeader />
