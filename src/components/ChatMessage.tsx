@@ -35,9 +35,6 @@ function ChatMessage({
     }
   };
   const doctorInfo = doctors.find((doc) => doc.id === senderId);
-  if (!doctorInfo) {
-    return null;
-  }
   const chat = chats.find((chat) => chat.id === currentChatId);
   const { selectDoctor } = useDoctorCardStore();
 
@@ -51,11 +48,10 @@ function ChatMessage({
     <div
       className={`flex flex-col ${isUser ? "items-end" : "items-start"} w-full`}
     >
-      {/* Message Bubble */}
-      {!isUser && chat?.type === "group" && (
-        <div>
+      {!isUser && chat?.type === "group" && doctorInfo && (
+        <div className=" flex gap-2.5 ">
           <div
-            className="size-[50px] rounded-full bg-gray-100 overflow-hidden"
+            className=" size-8 shrink-0 rounded-full bg-gray-100 overflow-hidden cursor-pointer"
             onClick={() => selectDoctor(doctorInfo.id)}
           >
             <img
@@ -64,15 +60,20 @@ function ChatMessage({
               className="w-full h-full object-cover"
             />
           </div>
-          <div className=" rounded-[20px] p-3 text-[16px] leading-[24px] flex flex-col items-end gap-1 bg-[#F6F6F6] text-[#16191D] rounded-tl-[0px]">
-            <p className="text-left">{doctorInfo?.name}</p>
+          <div className=" rounded-[20px] p-3 text-[16px] leading-[24px] flex flex-col gap-1 bg-[#F6F6F6] text-[#16191D] rounded-tl-[0px]">
+            <p
+              className="!text-left text-primary-main font-semibold cursor-pointer "
+              onClick={() => selectDoctor(doctorInfo.id)}
+            >
+              {doctorInfo?.name}
+            </p>
             <p className={`${message.files?.length ? "text-right" : ""} w-fit`}>
               {message.content}
             </p>
           </div>
         </div>
       )}
-      {chat?.type === "individual" && (
+      {(chat?.type === "individual" || !doctorInfo) && (
         <div
           className={` rounded-[20px] p-3 text-[16px] leading-[24px] flex flex-col items-end gap-1 ${
             isUser

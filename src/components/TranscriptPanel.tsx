@@ -111,10 +111,9 @@ function TranscriptPanel({ handleClose }: { handleClose: () => void }) {
             </div>
           </div>
         ))}
-
-        {/* Gradient fade at bottom */}
-        <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-b from-transparent to-white pointer-events-none" />
       </div>
+      {/* Gradient fade at bottom */}
+      <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-b from-transparent to-white pointer-events-none" />
     </div>
   );
 }

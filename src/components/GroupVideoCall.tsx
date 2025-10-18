@@ -101,7 +101,7 @@ function GroupVideoCall() {
       )}
 
       {showTranscript && (
-        <div className=" absolute right-0 top-0 ">
+        <div className=" absolute right-0 top-0 h-full ">
           <TranscriptPanel handleClose={() => setShowTranscript(false)} />
         </div>
       )}
