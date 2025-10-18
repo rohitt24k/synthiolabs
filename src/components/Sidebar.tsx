@@ -15,7 +15,10 @@ function Sidebar({ className = "" }: { className?: string }) {
         <h2 className="text-[24px] font-semibold text-[#1C274C] tracking-[-0.04em] leading-[36px]">
           Chats
         </h2>
-        <button className="p-2 hover:bg-gray-100 rounded-full transition cursor-pointer">
+        <button
+          className="p-2 hover:bg-gray-100 rounded-full transition cursor-pointer"
+          onClick={() => changeCurrentChat("")}
+        >
           <img src="/images/square-pen.svg" className=" h-6 w-6" />
         </button>
       </div>

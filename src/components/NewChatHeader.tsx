@@ -1,4 +1,4 @@
-import { Phone, Video, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
@@ -142,15 +142,6 @@ function NewChatheader() {
               </div>
             </>
           </div>
-        </div>
-
-        <div className=" self-start flex items-center gap-3">
-          <button className="flex justify-center items-center w-10 h-10 rounded-full border border-[#EEEEEE] bg-white">
-            <Video className="w-4 h-4 text-[#16191D]" />
-          </button>
-          <button className="flex justify-center items-center w-10 h-10 rounded-full border border-[#EEEEEE] bg-white">
-            <Phone className="w-4 h-4 text-[#16191D]" />
-          </button>
         </div>
       </div>
     </div>

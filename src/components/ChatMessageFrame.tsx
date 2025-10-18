@@ -79,16 +79,17 @@ function ChatMessageFrame() {
     addChat,
     currentRecipients,
     changeCurrentChat,
+    setCurrentRecipients,
   } = useChatStore();
-  const currentChat = chats.find((chat) => chat.id === currentChatId);
+  let currentChat = chats.find((chat) => chat.id === currentChatId);
   const currentMessages = currentChat?.messages || [];
   const [showDoctorCard, setShowDoctorCard] = useState(true);
+  let type = currentChat?.type;
 
   const onSend = (message: IInputItem) => {
     if (!addMessage) return;
     let chatId = currentChatId;
     if (!chatId && currentMessages.length === 0) {
-      console.log(currentRecipients);
       if (!currentRecipients || currentRecipients.length === 0) {
         console.log("No recipients");
         return;
@@ -99,11 +100,15 @@ function ChatMessageFrame() {
         memberIds
       );
 
-      changeCurrentChat(newChat);
-      chatId = newChat;
+      changeCurrentChat(newChat.id);
+      chatId = newChat.id;
+      type = memberIds.length === 1 ? "individual" : "group";
+      currentChat = newChat;
+      setCurrentRecipients([]);
     }
 
-    if (!chatId) return;
+    if (!chatId || !currentChat) return;
+
     addMessage(chatId, {
       id:
         typeof crypto !== "undefined" && "randomUUID" in crypto
@@ -129,7 +134,12 @@ function ChatMessageFrame() {
         typeof crypto !== "undefined" && "randomUUID" in crypto
           ? crypto.randomUUID()
           : `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-      senderId: currentChat?.members[0] || "1",
+      senderId:
+        type === "individual"
+          ? currentChat.members[0]
+          : currentChat.members[
+              Math.floor(Math.random() * currentChat.members.length)
+            ],
       message: assistantReply,
       liked: false,
       disliked: false,

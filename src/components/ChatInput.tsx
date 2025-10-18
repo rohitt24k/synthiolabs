@@ -63,7 +63,7 @@ function ChatInput({ onSend }: { onSend?: (message: IInputItem) => void }) {
   }, []);
 
   const handleSend = () => {
-    if (message.trim() === "") return;
+    if (message.trim() === "" && files.length === 0) return;
     onSend?.({
       id:
         typeof crypto !== "undefined" && "randomUUID" in crypto
@@ -124,6 +124,7 @@ function ChatInput({ onSend }: { onSend?: (message: IInputItem) => void }) {
         onChange={(e) => setMessage(e.target.value)}
         onInput={autoResize}
         placeholder="Ask anything..."
+        disabled={false}
         className="w-full text-[#16191D] text-[16px] leading-[24px] outline-none bg-transparent placeholder:text-[#A1A1A1] resize-none overflow-auto"
         onKeyDown={(e) => {
           if (e.key === "Enter" && !e.shiftKey) {
@@ -153,7 +154,7 @@ function ChatInput({ onSend }: { onSend?: (message: IInputItem) => void }) {
               "url('/images/background-dirt.png') center/300px 300px no-repeat, linear-gradient(180deg, #013BDB 0%, #2C62F7 100%)",
           }}
           title="Send"
-          disabled={!message}
+          // disabled={!message}
         >
           <ArrowUp className="w-4 h-4 text-white" />
         </button>

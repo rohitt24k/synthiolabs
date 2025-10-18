@@ -1,3 +1,4 @@
+import { useCallStore } from "@/store/useCallStore";
 import { Phone } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -7,6 +8,7 @@ function VideoCallActionButtons({
   parentRef?: React.RefObject<HTMLDivElement | null>;
 }) {
   const [show, setShow] = useState(true);
+  const { endCall } = useCallStore();
 
   useEffect(() => {
     if (!parentRef?.current) return;
@@ -44,7 +46,10 @@ function VideoCallActionButtons({
               className="w-5 h-5 text-[#53596C]"
             />
           </button>
-          <button className="flex justify-center items-center w-11 h-11 rounded-full bg-[#EE4D37] shadow-[0_4px_24px_0_rgba(0,0,0,0.05)]">
+          <button
+            className="flex justify-center items-center w-11 h-11 rounded-full bg-[#EE4D37] shadow-[0_4px_24px_0_rgba(0,0,0,0.05)]"
+            onClick={() => endCall()}
+          >
             <Phone
               className="w-5 h-5 text-white rotate-[136deg]"
               fill="white"

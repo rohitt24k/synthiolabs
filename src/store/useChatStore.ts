@@ -11,8 +11,8 @@ export interface ChatItem {
 interface ChatStore {
   chats: ChatItem[];
   currentChatId?: string;
-  currentRecipients?: DoctorInfo[];
-  addChat: (type: "individual" | "group", members: string[]) => string;
+  currentRecipients: DoctorInfo[];
+  addChat: (type: "individual" | "group", members: string[]) => ChatItem;
   addMessage: (chatId: string, message: IChatMessage) => void;
   changeCurrentChat: (chatId: string) => void;
   likeOrDislikeMessage: (
@@ -32,8 +32,9 @@ export const useChatStore = create<ChatStore>((set) => ({
       messages: [],
     },
   ],
+  currentRecipients: [],
 
-  addChat: (type: "individual" | "group", members: string[]): string => {
+  addChat: (type: "individual" | "group", members: string[]): ChatItem => {
     const newChatId =
       typeof crypto !== "undefined" && "randomUUID" in crypto
         ? crypto.randomUUID()
@@ -50,7 +51,12 @@ export const useChatStore = create<ChatStore>((set) => ({
       ],
       currentChatId: newChatId,
     }));
-    return newChatId;
+    return {
+      id: newChatId,
+      type,
+      members,
+      messages: [],
+    };
   },
   addMessage: (chatId, message) =>
     set((state) => ({
