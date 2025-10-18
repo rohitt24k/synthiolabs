@@ -26,6 +26,11 @@ export interface DoctorInfo {
   specialization: string;
   image: string;
   patientCases: String[];
-  publications: { title: string; subTitle: string; content: string }[];
+  publications: {
+    title: string;
+    year: string;
+    subTitle: string;
+    content: string;
+  }[];
   socialMedias: { content: string; platform: string }[];
 }

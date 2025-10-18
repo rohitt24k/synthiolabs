@@ -9,6 +9,8 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { useState } from "react";
+import { doctors } from "@/data/doctors";
+import { useDoctorCardStore } from "@/store/useDoctorCard";
 
 interface ChatMessageProps extends IChatMessage {
   currentChatId: string;
@@ -23,7 +25,7 @@ function ChatMessage({
   currentChatId,
 }: ChatMessageProps) {
   const isUser = senderId === "0";
-  const { likeOrDislikeMessage } = useChatStore();
+  const { likeOrDislikeMessage, chats } = useChatStore();
   const [copied, setCopied] = useState(false);
   const handleButtonClick = (action: string) => {
     if (action === "like") {
@@ -32,6 +34,12 @@ function ChatMessage({
       likeOrDislikeMessage(currentChatId, id, "dislike");
     }
   };
+  const doctorInfo = doctors.find((doc) => doc.id === senderId);
+  if (!doctorInfo) {
+    return null;
+  }
+  const chat = chats.find((chat) => chat.id === currentChatId);
+  const { selectDoctor } = useDoctorCardStore();
 
   const handleCopy = (text: string) => {
     setCopied(true);
@@ -44,39 +52,60 @@ function ChatMessage({
       className={`flex flex-col ${isUser ? "items-end" : "items-start"} w-full`}
     >
       {/* Message Bubble */}
-      <div
-        className={` rounded-[20px] p-3 text-[16px] leading-[24px] flex flex-col items-end gap-1 ${
-          isUser
-            ? "bg-[#4B7BFF] text-white rounded-tr-[0px]"
-            : "bg-[#F6F6F6] text-[#16191D] rounded-tl-[0px]"
-        }`}
-      >
-        <p className={`${message.files?.length ? "text-right" : ""} w-fit`}>
-          {message.content}
-        </p>
-
-        {message.files?.map((file) =>
-          file.mimeType.startsWith("image") ? (
+      {!isUser && chat?.type === "group" && (
+        <div>
+          <div
+            className="size-[50px] rounded-full bg-gray-100 overflow-hidden"
+            onClick={() => selectDoctor(doctorInfo.id)}
+          >
             <img
-              src={file.url}
-              className=" max-w-[20vw] min-w-40 min-h-40 rounded-xl "
+              src={doctorInfo?.image}
+              alt={doctorInfo?.name}
+              className="w-full h-full object-cover"
             />
-          ) : (
-            file.mimeType === "application/pdf" && (
-              <div
-                className=" size-[10vw] min-w-20 min-h-20 grid place-items-center bg-[#ED676A]/20 rounded overflow-hidden "
-                title={file.name}
-              >
-                <img
-                  src="/images/pdf-icon.svg"
-                  className=" size-[5vw] min-w-12 min-h-12 max-w-20 "
-                />
-              </div>
-            )
-          )
-        )}
-      </div>
+          </div>
+          <div className=" rounded-[20px] p-3 text-[16px] leading-[24px] flex flex-col items-end gap-1 bg-[#F6F6F6] text-[#16191D] rounded-tl-[0px]">
+            <p className="text-left">{doctorInfo?.name}</p>
+            <p className={`${message.files?.length ? "text-right" : ""} w-fit`}>
+              {message.content}
+            </p>
+          </div>
+        </div>
+      )}
+      {chat?.type === "individual" && (
+        <div
+          className={` rounded-[20px] p-3 text-[16px] leading-[24px] flex flex-col items-end gap-1 ${
+            isUser
+              ? "bg-[#4B7BFF] text-white rounded-tr-[0px]"
+              : "bg-[#F6F6F6] text-[#16191D] rounded-tl-[0px]"
+          }`}
+        >
+          <p className={`${message.files?.length ? "text-right" : ""} w-fit`}>
+            {message.content}
+          </p>
 
+          {message.files?.map((file) =>
+            file.mimeType.startsWith("image") ? (
+              <img
+                src={file.url}
+                className=" max-w-[20vw] min-w-40 min-h-40 rounded-xl "
+              />
+            ) : (
+              file.mimeType === "application/pdf" && (
+                <div
+                  className=" size-[10vw] min-w-20 min-h-20 grid place-items-center bg-[#ED676A]/20 rounded overflow-hidden "
+                  title={file.name}
+                >
+                  <img
+                    src="/images/pdf-icon.svg"
+                    className=" size-[5vw] min-w-12 min-h-12 max-w-20 "
+                  />
+                </div>
+              )
+            )
+          )}
+        </div>
+      )}
       {/* Action Buttons */}
       {!isUser && (
         <div className="flex items-center gap-1.5 mt-2 mb-3">

@@ -14,12 +14,14 @@ export const doctors: DoctorInfo[] = [
       {
         title: "Advancements in Cardiac Ablation",
         subTitle: "A Comprehensive Review",
+        year: "2023",
         content:
           "This publication explores the latest techniques and technologies in cardiac ablation, highlighting their effectiveness in treating arrhythmias.",
       },
       {
         title: "Heart Failure Management Strategies",
         subTitle: "Integrating Multidisciplinary Care",
+        year: "2022",
         content:
           "An in-depth analysis of various strategies for managing heart failure, emphasizing the importance of a team-based approach.",
       },
@@ -48,12 +50,14 @@ export const doctors: DoctorInfo[] = [
       {
         title: "Autoimmune Encephalitis: Diagnosis and Treatment",
         subTitle: "Clinical Insights",
+        year: "2023",
         content:
           "This article provides clinical insights into the diagnosis and treatment of autoimmune encephalitis, based on recent case studies.",
       },
       {
         title: "Stroke Rehabilitation Techniques",
         subTitle: "Improving Patient Outcomes",
+        year: "2021",
         content:
           "A review of effective rehabilitation techniques for stroke patients, focusing on enhancing recovery and quality of life.",
       },
@@ -82,12 +86,14 @@ export const doctors: DoctorInfo[] = [
       {
         title: "Targeted Therapies in Breast Cancer",
         subTitle: "Clinical Trial Results",
+        year: "2024",
         content:
           "This publication presents the results of a clinical trial investigating the efficacy of a new targeted therapy for breast cancer patients.",
       },
       {
         title: "Palliative Care in Oncology",
         subTitle: "Enhancing Patient Comfort",
+        year: "2022",
         content:
           "An exploration of palliative care approaches in oncology, focusing on strategies to improve patient comfort and well-being.",
       },
@@ -116,12 +122,14 @@ export const doctors: DoctorInfo[] = [
       {
         title: "Personalized Treatment Plans for Pediatric Asthma",
         subTitle: "Improving Patient Outcomes",
+        year: "2023",
         content:
           "This article discusses the benefits of personalized treatment plans in managing pediatric asthma, supported by recent case studies.",
       },
       {
         title: "Promoting Childhood Vaccination",
         subTitle: "Community Outreach Strategies",
+        year: "2022",
         content:
           "An overview of effective community outreach strategies to increase childhood vaccination rates and improve public health.",
       },
@@ -152,12 +160,14 @@ export const user: DoctorInfo = {
     {
       title: "Preventive Care in Primary Practice",
       subTitle: "Strategies for Success",
+      year: "2023",
       content:
         "This publication outlines effective strategies for implementing preventive care in primary practice, aiming to improve patient outcomes.",
     },
     {
       title: "Telemedicine in General Practice",
       subTitle: "Expanding Access to Care",
+      year: "2022",
       content:
         "An exploration of telemedicine applications in general practice, highlighting benefits and challenges in expanding patient access to healthcare services.",
     },

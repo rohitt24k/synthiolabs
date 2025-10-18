@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Chat from "./Chat";
 import ChatInput from "./ChatInput";
 import ChatMessage from "./ChatMessage";
 import type { IInputItem } from "@/types/input";
-import { useChatStore } from "@/store/useChatStore";
+
 import DoctorCard from "./DoctorCard";
+import { useDoctorCardStore } from "@/store/useDoctorCard";
+import { useChatStore } from "@/store/useChatStore";
 
 const assistantReplies: {
   message: string;
@@ -39,35 +41,6 @@ const assistantReplies: {
   },
 ];
 
-const dummyExperiences = [
-  "In my experience treating SCLC patients, maintenance therapy is crucial to control disease progression.",
-  "I've seen families struggle with monitoring requirements for new therapies like BiTEs, highlighting the need for remote monitoring protocols.",
-  "A patient's father with extensive SCLC showed how effective maintenance options can extend survival.",
-];
-
-const insights = [
-  {
-    source: "Cancer Network",
-    year: "2025",
-    title:
-      "Lurbinectedin Maintenance Combo Earns FDA Priority Review in ES-SCLC",
-    description:
-      "The efficacy data from IMforte, particularly the significant improvements in PFS and OS, are quite compelling. As someone who's always looking for ways to improve outcomes for my SCLC patients, these results caught my attention. However, I’m also mindful of potential toxicity with the combination, which needs careful management.",
-  },
-  {
-    source: "Medical Oncology Review",
-    year: "2025",
-    title: "BiTE Therapies Show Early Promise in SCLC Trials",
-    description:
-      "The IMfirst trial's data demonstrates a promising trend toward longer overall survival, but managing immune-related adverse events remains a challenge that warrants more focused study.",
-  },
-];
-
-const dummySocialMedia = [
-  "I've had patients express concerns about the monitoring requirements for new therapies like BiTEs. One patient's family member asked about how we would manage potential side effects if they lived hours away from our center. This highlighted the need for us to develop robust remote monitoring protocols and educational materials to address these valid concerns that patients and families have about accessing novel treatments.",
-  "I've had patients express concerns about the monitoring requirements for new therapies like BiTEs. One patient's family member asked about how we would manage potential side effects if they lived hours away from our center. This highlighted the need for us to develop robust remote monitoring protocols and educational materials to address these valid concerns that patients and families have about accessing novel treatments.",
-];
-
 function ChatMessageFrame() {
   const chatInputBoxRef = useRef<HTMLInputElement>(null);
   const chatContentRef = useRef<HTMLInputElement>(null);
@@ -83,8 +56,8 @@ function ChatMessageFrame() {
   } = useChatStore();
   let currentChat = chats.find((chat) => chat.id === currentChatId);
   const currentMessages = currentChat?.messages || [];
-  const [showDoctorCard, setShowDoctorCard] = useState(true);
   let type = currentChat?.type;
+  const { selectedDoctorId, clearSelection } = useDoctorCardStore();
 
   const onSend = (message: IInputItem) => {
     if (!addMessage) return;
@@ -146,6 +119,10 @@ function ChatMessageFrame() {
     });
   };
 
+  const handleCloseDoctorCard = () => {
+    clearSelection();
+  };
+
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [currentMessages.length]);
@@ -170,17 +147,9 @@ function ChatMessageFrame() {
           />
         </div>
       </div>
-      {showDoctorCard && (
+      {selectedDoctorId && (
         <div className=" absolute top-3 right-3 max-w-full pl-6 ">
-          <DoctorCard
-            name="Dr. Sarah Patel"
-            specialization="Oncologist"
-            avatar="https://randomuser.me/api/portraits/women/68.jpg"
-            publications={insights}
-            socialMedia={dummySocialMedia}
-            experiences={dummyExperiences}
-            onClose={() => setShowDoctorCard(false)}
-          />
+          <DoctorCard onClose={() => handleCloseDoctorCard()} />
         </div>
       )}
     </Chat.Content>

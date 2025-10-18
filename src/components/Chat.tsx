@@ -6,6 +6,7 @@ import type { DoctorInfo } from "@/types/input";
 import GroupVideoCall from "./GroupVideoCall";
 import VideoCallFrame from "./VideoCallFrame";
 import { useCallStore } from "@/store/useCallStore";
+import { useDoctorCardStore } from "@/store/useDoctorCard";
 
 function Chat({ children }: { children: React.ReactNode }) {
   return (
@@ -21,6 +22,7 @@ function ChatHeader() {
   const type = currentChat?.type;
   let doctorsInfo: DoctorInfo[] = [];
   const { startCall } = useCallStore();
+  const { selectDoctor } = useDoctorCardStore();
   if (currentChat) {
     doctorsInfo = currentChat.members
       .map((memberId) => doctors.find((doc) => doc.id === memberId))
@@ -37,6 +39,10 @@ function ChatHeader() {
               backgroundImage: `url(${
                 doctorsInfo[0]?.image || "/images/doctor-placeholder.jpg"
               })`,
+            }}
+            onClick={() => {
+              console.log(doctorsInfo[0].id);
+              selectDoctor(doctorsInfo[0].id);
             }}
           ></div>
           <div className="flex flex-col">

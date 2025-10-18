@@ -32,12 +32,14 @@ function Sidebar({
         </button>
       </div>
 
-      <div className="flex flex-col items-center justify-center gap-2 w-full px-2">
+      <div className="flex flex-col items-center justify-center gap-2 w-full px-2 [&>div]:border-t [&>div:first-child]:border-t-0">
         {chats.map((chat, i) => (
           <div
             key={i}
-            className={`flex items-center gap-3 w-full md:max-w-[346px] h-[72px] rounded-xl border-b border-[#EEEEEE] hover:bg-primary-tint-02 cursor-pointer ${
-              chat.id === currentChatId ? "bg-[#EBF0FF]" : ""
+            className={`flex items-center gap-3 w-full md:max-w-[346px] h-[72px] hover:rounded-[12px] [&:hover]:border-t-transparent [&:hover+div]:border-t-transparent hover:bg-primary-tint-02 cursor-pointer ${
+              chat.id === currentChatId
+                ? "bg-[#EBF0FF] rounded-[12px] !border-t-transparent "
+                : ""
             } p-3`}
             onClick={() => {
               if (changeCurrentChat) changeCurrentChat(chat.id);
