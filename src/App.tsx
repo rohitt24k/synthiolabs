@@ -1,10 +1,8 @@
 import Chat from "./components/Chat";
 import ChatMessageFrame from "./components/ChatMessageFrame";
 import Gradient from "./components/Gradient";
-import GroupVideoCall from "./components/GroupVideoCall";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
-import VideoCallFrame from "./components/VideoCallFrame";
 
 function App() {
   return (
