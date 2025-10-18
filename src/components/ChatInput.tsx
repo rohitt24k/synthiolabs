@@ -4,7 +4,13 @@ import type { IInputItem, IUploadedFile } from "@/types/input";
 import type React from "react";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 
-function ChatInput({ onSend }: { onSend?: (message: IInputItem) => void }) {
+function ChatInput({
+  onSend,
+  isDisabled = false,
+}: {
+  onSend?: (message: IInputItem) => void;
+  isDisabled?: boolean;
+}) {
   const [message, setMessage] = useState("");
   const [files, setFiles] = useState<IUploadedFile[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -124,7 +130,7 @@ function ChatInput({ onSend }: { onSend?: (message: IInputItem) => void }) {
         onChange={(e) => setMessage(e.target.value)}
         onInput={autoResize}
         placeholder="Ask anything..."
-        disabled={false}
+        disabled={isDisabled}
         className="w-full text-[#16191D] text-[16px] leading-[24px] outline-none bg-transparent placeholder:text-[#A1A1A1] resize-none overflow-auto"
         onKeyDown={(e) => {
           if (e.key === "Enter" && !e.shiftKey) {
@@ -154,7 +160,7 @@ function ChatInput({ onSend }: { onSend?: (message: IInputItem) => void }) {
               "url('/images/background-dirt.png') center/300px 300px no-repeat, linear-gradient(180deg, #013BDB 0%, #2C62F7 100%)",
           }}
           title="Send"
-          // disabled={!message}
+          disabled={!message && !files.length}
         >
           <ArrowUp className="w-4 h-4 text-white" />
         </button>
@@ -165,6 +171,7 @@ function ChatInput({ onSend }: { onSend?: (message: IInputItem) => void }) {
         ref={inputRef}
         onChange={handleFileUpload}
         multiple
+        disabled={isDisabled}
       />
     </div>
   );

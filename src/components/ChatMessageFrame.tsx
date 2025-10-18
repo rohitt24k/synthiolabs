@@ -164,7 +164,7 @@ function ChatMessageFrame() {
       >
         <div className=" absolute top-0 -left-6 inset-0 w-[calc(100%+48px)] h-[calc(100%+24px)] bg-white " />
         <div className=" w-full relative z-[1] ">
-          <ChatInput onSend={onSend} />
+          <ChatInput onSend={onSend} isDisabled={!currentChatId} />
         </div>
       </div>
       {showDoctorCard && (
